@@ -32,24 +32,42 @@ public class Program {
 			double anualIncome = sc.nextDouble();
 
 			if (resp == 'i') {
+
 				System.out.print("Health expenditures: ");
 				double healthExpenditures = sc.nextDouble();
+
 				listPayer.add(new Individual(name, anualIncome, healthExpenditures));
+
 			} else if (resp == 'c') {
+
 				System.out.print("Number of employees: ");
 				int numberOfEmployees = sc.nextInt();
+
 				listPayer.add(new Company(name, anualIncome, numberOfEmployees));
 			}
 		}
-		double sum = 0.0;
+
 		System.out.println();
 		System.out.println("TAXES PAID: ");
 
 		for (TaxPayer payer : listPayer) {
-			double tax = payer.tax();
-			System.out.println(payer.getName() + ": $" + String.format("%.2f", tax));
-			sum += tax;
+
+			if (payer instanceof Individual) {
+
+				System.out.println("Individual: ");
+
+			} else if (payer instanceof Company) {
+
+				System.out.println("Company: ");
+			}
+			System.out.println(payer.getName() + ": $" + String.format("%.2f", payer.tax()));
 		}
+		System.out.println();
+		double sum = 0.0;
+		for (TaxPayer payer : listPayer) {
+			sum += payer.tax();
+		}
+
 		System.out.print("TOTAL TAXES: $" + String.format("%.2f%n", sum));
 
 		sc.close();
